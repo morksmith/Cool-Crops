@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
             if (Input.GetButton("Fire1"))
             {
                 DebugCube.SetActive(true);
-                var playerPos = PlayerMesh.position + PlayerMesh.forward * 1;
+                var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
                 var snapPos = new Vector3(Mathf.Round(playerPos.x), Mathf.Round(playerPos.y), Mathf.Round(playerPos.z));
                 DebugCube.transform.position = snapPos;
                 CubeMesh.enabled = true;
