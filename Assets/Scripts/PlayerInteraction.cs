@@ -4,27 +4,36 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public bool Debug = true;
+    public bool DebugMode = true;
     public GameObject DebugCube;
     public MeshRenderer CubeMesh;
     public Transform PlayerMesh;
+    public PlayerInventory Inventory;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         if (GameManager.Paused)
         {
             return;
         }
+        
 
-        if (Debug)
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Input.GetButton("Fire1"))
+            Interact();
+        }
+
+        if (DebugMode)
+        {
+            if (Input.GetButton("Fire2"))
             {
                 DebugCube.SetActive(true);
                 var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
@@ -40,6 +49,22 @@ public class PlayerInteraction : MonoBehaviour
         else
         {
             CubeMesh.enabled = true;
+        }
+    }
+    public void Interact()
+    {
+        var rayStart = PlayerMesh.position + PlayerMesh.forward * 1f + PlayerMesh.up * 2;
+        Ray ray = new Ray(rayStart, Vector3.down);        
+        RaycastHit hit;
+        if(Physics.SphereCast(ray, 0.25f, out hit))
+        {
+            Debug.Log(hit.transform.name);
+            if (hit.transform.GetComponent<Fruit>())
+            {
+                var fruitInfo = hit.transform.GetComponent<Fruit>();
+                Inventory.SetFruit(fruitInfo.Type.ToString(), 1);
+                Destroy(hit.transform.gameObject);
+            }
         }
     }
 }
