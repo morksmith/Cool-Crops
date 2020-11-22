@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    public int Price;
     public enum FruitType
     {
         Apples,
