@@ -9,6 +9,11 @@ public class PlayerInteraction : MonoBehaviour
     public MeshRenderer CubeMesh;
     public Transform PlayerMesh;
     public PlayerInventory Inventory;
+    public Transform InteractionCanvas;
+    public bool Interactable = false;
+    public Transform InteractIcon;
+
+    private Vector3 rayStart;
 
     // Start is called before the first frame update
     void Start()
@@ -18,17 +23,44 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        InteractionCanvas.forward = Camera.main.transform.forward;
 
         if (GameManager.Paused)
         {
             return;
         }
-        
 
-        if (Input.GetButtonDown("Fire1"))
+        rayStart = PlayerMesh.position + PlayerMesh.forward * 1f + PlayerMesh.up * 2;
+        Ray ray = new Ray(rayStart, Vector3.down);
+        RaycastHit hit;
+        if (Physics.SphereCast(ray, 0.25f, out hit))
         {
-            Interact();
+            
+            if (hit.transform.GetComponent<Fruit>())
+            {
+                Interactable = true;
+            }
+            else
+            {
+                Interactable = false;
+            }
+        }
+        else
+        {
+            Interactable = false;
+        }
+
+        if (Interactable)
+        {
+            InteractIcon.localScale = Vector3.Lerp(InteractIcon.localScale, Vector3.one, Time.deltaTime * 10);
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Interact();
+            }
+        }
+        else
+        {
+            InteractIcon.localScale = Vector3.Lerp(InteractIcon.localScale, Vector3.zero, Time.deltaTime * 10);
         }
 
         if (DebugMode)
@@ -53,7 +85,6 @@ public class PlayerInteraction : MonoBehaviour
     }
     public void Interact()
     {
-        var rayStart = PlayerMesh.position + PlayerMesh.forward * 1f + PlayerMesh.up * 2;
         Ray ray = new Ray(rayStart, Vector3.down);        
         RaycastHit hit;
         if(Physics.SphereCast(ray, 0.25f, out hit))
