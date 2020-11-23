@@ -1111,6 +1111,13 @@ MonoBehaviour:
   Inventory: {fileID: 1404152872}
   FruitType: {fileID: 560987710813276287, guid: c37f945e16bc52047800fc6fed766a30,
     type: 3}
+  ApplePrefab: {fileID: 1763256493929671835, guid: f2a31d8e61a96444785645166cdc9f30,
+    type: 3}
+  BananaPrefab: {fileID: 7805802806124932334, guid: 75551556451c45f498f7482f95cb4a58,
+    type: 3}
+  CarrotPrefab: {fileID: 560987710813276287, guid: c37f945e16bc52047800fc6fed766a30,
+    type: 3}
+  SellAllButton: 0
   MyButton: {fileID: 308773054}
 --- !u!1 &311578991
 GameObject:
@@ -1724,6 +1731,13 @@ MonoBehaviour:
   Inventory: {fileID: 1404152872}
   FruitType: {fileID: 7805802806124932334, guid: 75551556451c45f498f7482f95cb4a58,
     type: 3}
+  ApplePrefab: {fileID: 1763256493929671835, guid: f2a31d8e61a96444785645166cdc9f30,
+    type: 3}
+  BananaPrefab: {fileID: 7805802806124932334, guid: 75551556451c45f498f7482f95cb4a58,
+    type: 3}
+  CarrotPrefab: {fileID: 560987710813276287, guid: c37f945e16bc52047800fc6fed766a30,
+    type: 3}
+  SellAllButton: 0
   MyButton: {fileID: 392547788}
 --- !u!1 &475999695
 GameObject:
@@ -4170,6 +4184,7 @@ GameObject:
   - component: {fileID: 1213240039}
   - component: {fileID: 1213240038}
   - component: {fileID: 1213240037}
+  - component: {fileID: 1213240040}
   m_Layer: 5
   m_Name: Sell All Button
   m_TagString: Untagged
@@ -4239,7 +4254,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1213240038}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1213240040}
+        m_TargetAssemblyTypeName: SellButton, Assembly-CSharp
+        m_MethodName: SellAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1213240038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4278,6 +4305,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213240035}
   m_CullTransparentMesh: 0
+--- !u!114 &1213240040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213240035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09a293727f451438f5a0ebbce5b72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inventory: {fileID: 1404152872}
+  FruitType: {fileID: 0}
+  ApplePrefab: {fileID: 1763256493929671835, guid: f2a31d8e61a96444785645166cdc9f30,
+    type: 3}
+  BananaPrefab: {fileID: 7805802806124932334, guid: 75551556451c45f498f7482f95cb4a58,
+    type: 3}
+  CarrotPrefab: {fileID: 560987710813276287, guid: c37f945e16bc52047800fc6fed766a30,
+    type: 3}
+  SellAllButton: 1
+  MyButton: {fileID: 1213240037}
 --- !u!1 &1217256843
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,6 +5097,13 @@ MonoBehaviour:
   Inventory: {fileID: 1404152872}
   FruitType: {fileID: 1763256493929671835, guid: f2a31d8e61a96444785645166cdc9f30,
     type: 3}
+  ApplePrefab: {fileID: 1763256493929671835, guid: f2a31d8e61a96444785645166cdc9f30,
+    type: 3}
+  BananaPrefab: {fileID: 7805802806124932334, guid: 75551556451c45f498f7482f95cb4a58,
+    type: 3}
+  CarrotPrefab: {fileID: 560987710813276287, guid: c37f945e16bc52047800fc6fed766a30,
+    type: 3}
+  SellAllButton: 0
   MyButton: {fileID: 1504012909}
 --- !u!1 &1580538437
 GameObject:
