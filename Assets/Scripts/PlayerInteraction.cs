@@ -13,6 +13,26 @@ public class PlayerInteraction : MonoBehaviour
     public bool Interactable = false;
     public Transform InteractIcon;
 
+    public enum EquipableItems
+    {
+        None,
+        ASeed,
+        BSeed,
+        CSeed,
+        Water,
+        Shears,
+        Scythe,
+        Shovel,
+        Pick,
+        Spray,
+        Poison
+    }
+    public EquipableItems Item = EquipableItems.None;
+
+    public GameObject ASeedPrefab;
+    public GameObject BSeedPrefab;
+    public GameObject CSeedPrefab;
+
     private Vector3 rayStart;
 
     // Start is called before the first frame update
@@ -36,7 +56,7 @@ public class PlayerInteraction : MonoBehaviour
         if (Physics.SphereCast(ray, 0.25f, out hit))
         {
             
-            if (hit.transform.GetComponent<Fruit>())
+            if (hit.transform.GetComponent<Fruit>() || hit.transform.GetComponent<Seed>())
             {
                 Interactable = true;
             }
@@ -96,6 +116,35 @@ public class PlayerInteraction : MonoBehaviour
                 Inventory.SetFruit(fruitInfo.Type.ToString(), 1);
                 Destroy(hit.transform.gameObject);
             }
+
         }
     }
+    public void UseItem()
+    {
+        
+    }
+    public void PlaceSeed(GameObject seed)
+    {
+        var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
+        var snapPos = new Vector3(Mathf.Round(playerPos.x), Mathf.Round(playerPos.y), Mathf.Round(playerPos.z));
+        var newSeed = Instantiate(seed, snapPos, transform.rotation);
+    }
+
+    public void EquipWater()
+    {
+        Item = EquipableItems.Water;
+    }
+    public void EquipASeed()
+    {
+        Item = EquipableItems.ASeed;
+    }
+    public void EquipBSeed()
+    {
+        Item = EquipableItems.BSeed;
+    }
+    public void EquipCSeed()
+    {
+        Item = EquipableItems.CSeed;
+    }
+
 }
