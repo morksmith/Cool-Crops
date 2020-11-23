@@ -44,6 +44,7 @@ public class Seed : MonoBehaviour
     public void Water()
     {
         WetMesh.gameObject.SetActive(true);
+        Wet = true;
     }
     public void SpawnFruit()
     {

@@ -13,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     public bool Interactable = false;
     public Transform InteractIcon;
 
-    public enum EquipableItems
+    public enum EpuippedItem
     {
         None,
         ASeed,
@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
         Spray,
         Poison
     }
-    public EquipableItems Item = EquipableItems.None;
+    public EpuippedItem Item = EpuippedItem.None;
 
     public GameObject ASeedPrefab;
     public GameObject BSeedPrefab;
@@ -50,13 +50,18 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        if (Input.GetButtonDown("Fire2"))
+        {
+            UseItem();
+        }
+
         rayStart = PlayerMesh.position + PlayerMesh.forward * 1f + PlayerMesh.up * 2;
         Ray ray = new Ray(rayStart, Vector3.down);
         RaycastHit hit;
         if (Physics.SphereCast(ray, 0.25f, out hit))
         {
             
-            if (hit.transform.GetComponent<Fruit>() || hit.transform.GetComponent<Seed>())
+            if (hit.transform.GetComponent<Fruit>())
             {
                 Interactable = true;
             }
@@ -83,25 +88,25 @@ public class PlayerInteraction : MonoBehaviour
             InteractIcon.localScale = Vector3.Lerp(InteractIcon.localScale, Vector3.zero, Time.deltaTime * 10);
         }
 
-        if (DebugMode)
-        {
-            if (Input.GetButton("Fire2"))
-            {
-                DebugCube.SetActive(true);
-                var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
-                var snapPos = new Vector3(Mathf.Round(playerPos.x), Mathf.Round(playerPos.y), Mathf.Round(playerPos.z));
-                DebugCube.transform.position = snapPos;
-                CubeMesh.enabled = true;
-            }
-            else
-            {
-                DebugCube.SetActive(false);
-            }
-        }
-        else
-        {
-            CubeMesh.enabled = true;
-        }
+        //if (DebugMode)
+        //{
+        //    if (Input.GetButton("Fire2"))
+        //    {
+        //        DebugCube.SetActive(true);
+        //        var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
+        //        var snapPos = new Vector3(Mathf.Round(playerPos.x), Mathf.Round(playerPos.y), Mathf.Round(playerPos.z));
+        //        DebugCube.transform.position = snapPos;
+        //        CubeMesh.enabled = true;
+        //    }
+        //    else
+        //    {
+        //        DebugCube.SetActive(false);
+        //    }
+        //}
+        //else
+        //{
+        //    CubeMesh.enabled = true;
+        //}
     }
     public void Interact()
     {
@@ -121,7 +126,14 @@ public class PlayerInteraction : MonoBehaviour
     }
     public void UseItem()
     {
-        
+        if(Item == EpuippedItem.Water)
+        {
+            UseWater();
+        }
+        else
+        {
+            Debug.Log("No Item Equipped");
+        }
     }
     public void PlaceSeed(GameObject seed)
     {
@@ -132,19 +144,35 @@ public class PlayerInteraction : MonoBehaviour
 
     public void EquipWater()
     {
-        Item = EquipableItems.Water;
+        Item = EpuippedItem.Water;
     }
     public void EquipASeed()
     {
-        Item = EquipableItems.ASeed;
+        Item = EpuippedItem.ASeed;
     }
     public void EquipBSeed()
     {
-        Item = EquipableItems.BSeed;
+        Item = EpuippedItem.BSeed;
     }
     public void EquipCSeed()
     {
-        Item = EquipableItems.CSeed;
+        Item = EpuippedItem.CSeed;
+    }
+    public void UseWater()
+    {
+        rayStart = PlayerMesh.position + PlayerMesh.forward * 1f + PlayerMesh.up * 2;
+        Ray ray = new Ray(rayStart, Vector3.down);
+        RaycastHit hit;
+        if (Physics.SphereCast(ray, 0.25f, out hit))
+        {
+
+            if (hit.transform.GetComponent<Seed>())
+            {
+                var hitSeed = hit.transform.GetComponent<Seed>();
+                hitSeed.Water();
+            }
+            
+        }
     }
 
 }
