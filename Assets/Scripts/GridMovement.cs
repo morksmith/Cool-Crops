@@ -27,7 +27,7 @@ public class GridMovement : MonoBehaviour
         {
             if(Vector3.Distance(transform.position, movePos) > 0.01f)
             {
-                transform.position = Vector3.Lerp(transform.position, movePos, MoveSpeed * Time.deltaTime / Vector3.Distance(transform.position, movePos));
+                transform.position = Vector3.MoveTowards(transform.position, movePos, MoveSpeed * Time.deltaTime);
             }
             else
             {
