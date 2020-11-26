@@ -131,6 +131,28 @@ public class PlayerInteraction : MonoBehaviour
         {
             UseWater();
         }
+        else if(Item == EpuippedItem.ASeed)
+        {
+            if(Inventory.ASeeds > 0)
+            {
+                PlaceSeed(ASeedPrefab);
+            }
+
+        }
+        else if (Item == EpuippedItem.BSeed)
+        {
+            if (Inventory.BSeeds > 0)
+            {
+                PlaceSeed(BSeedPrefab);
+            }
+        }
+        else if (Item == EpuippedItem.CSeed)
+        {
+            if (Inventory.CSeeds > 0)
+            {
+                PlaceSeed(CSeedPrefab);
+            }
+        }
         else
         {
             Debug.Log("No Item Equipped");
@@ -140,7 +162,15 @@ public class PlayerInteraction : MonoBehaviour
     {
         var playerPos = PlayerMesh.position + PlayerMesh.forward * 1.2f;
         var snapPos = new Vector3(Mathf.Round(playerPos.x), Mathf.Round(playerPos.y), Mathf.Round(playerPos.z));
-        var newSeed = Instantiate(seed, snapPos, transform.rotation);
+        Ray ray = new Ray(snapPos + Vector3.up * 2, Vector3.down);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit))
+        {
+            //if (hit.transform.GetComponent<Dirt>())
+            //{
+            //    var newSeed = Instantiate(seed, snapPos, transform.rotation);
+            //}
+        }
     }
 
     public void EquipWater()
