@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static bool Paused = false;
-    public Menu MainMenu;
+    public Menu InventoryMenu;
+    public TextMeshProUGUI EquippedText;
+    public PlayerInteraction Interaction;
+
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        UpdateUI();
     }
 
     // Update is called once per frame
@@ -18,17 +24,22 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (MainMenu.Active)
+            if (InventoryMenu.Active)
             {
-                MainMenu.Active = false;
+                InventoryMenu.Active = false;
                 Paused = false;
             }
             else
             {
-                MainMenu.Active = true;
+                InventoryMenu.Active = true;
                 Paused = true;
             }
         }
         
     }
+    public void UpdateUI()
+    {
+        EquippedText.text = "Equipped Item: " + Interaction.Item.ToString();
+    }
+    
 }

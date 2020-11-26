@@ -12,6 +12,7 @@ public class PlayerInteraction : MonoBehaviour
     public Transform InteractionCanvas;
     public bool Interactable = false;
     public Transform InteractIcon;
+    public GameManager Manager;
 
     public enum EpuippedItem
     {
@@ -145,18 +146,25 @@ public class PlayerInteraction : MonoBehaviour
     public void EquipWater()
     {
         Item = EpuippedItem.Water;
+        Manager.UpdateUI();
     }
     public void EquipASeed()
     {
         Item = EpuippedItem.ASeed;
+        Manager.UpdateUI();
+
     }
     public void EquipBSeed()
     {
         Item = EpuippedItem.BSeed;
+        Manager.UpdateUI();
+
     }
     public void EquipCSeed()
     {
         Item = EpuippedItem.CSeed;
+        Manager.UpdateUI();
+
     }
     public void UseWater()
     {
