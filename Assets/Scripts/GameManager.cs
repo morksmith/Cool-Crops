@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        UpdateUI();
     }
 
     // Update is called once per frame
@@ -37,9 +36,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    public void UpdateUI()
-    {
-        EquippedText.text = "Equipped Item: " + Interaction.Item.ToString();
-    }
+   
     
 }

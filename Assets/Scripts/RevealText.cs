@@ -6,7 +6,8 @@ using TMPro;
 
 public class RevealText : MonoBehaviour
 {
-    public TextMeshProUGUI DialogueText;
+    private TextMeshProUGUI dialogueText;
+    private Menu dialogueCanvas;
     public List<string> Sentences;
     public bool Complete = false;
     public float RevealSpeed = 5;
@@ -16,25 +17,28 @@ public class RevealText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DialogueText.maxVisibleCharacters = 0;
-        currentChar = 0;
-        DialogueText.text = Sentences[0];
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(dialogueText == null)
+        {
+            return;
+        }
+
         if (!Complete)
         {
-            if(DialogueText.maxVisibleCharacters < DialogueText.text.Length)
+            if(dialogueText.maxVisibleCharacters < dialogueText.text.Length)
             {
                 revealTimer += Time.deltaTime * RevealSpeed;
                 if (revealTimer > 1)
                 {
-                    DialogueText.maxVisibleCharacters += 1;
+                    dialogueText.maxVisibleCharacters += 1;
                     revealTimer = 0;
-                    Debug.Log(DialogueText.text[currentChar]);
-                    if (currentChar < DialogueText.text.Length - 1)
+                    Debug.Log(dialogueText.text[currentChar]);
+                    if (currentChar < dialogueText.text.Length - 1)
                     {
                         currentChar++;
                     }
@@ -52,19 +56,38 @@ public class RevealText : MonoBehaviour
         }
     }
 
+    public void StartDialogue(Menu dCanvas, TextMeshProUGUI dText)
+    {
+        dialogueText = dText;
+        dialogueCanvas = dCanvas;
+        dialogueText.text = Sentences[0];
+        dialogueText.maxVisibleCharacters = 0;
+        currentChar = 0;
+        GameManager.Paused = true;
+        dialogueCanvas.Active = true;
+        dialogueText = dText;
+
+    }
     public void NextSentence()
     {
         if(sentenceInt < Sentences.Count - 1)
         {
             sentenceInt++;
-            DialogueText.text = Sentences[sentenceInt];
-            DialogueText.maxVisibleCharacters = 0;
+            dialogueText.text = Sentences[sentenceInt];
+            dialogueText.maxVisibleCharacters = 0;
             currentChar = 0;
             Complete = false;
         }
         else
         {
-            Debug.Log("Close Dialogue");
+            dialogueCanvas.Active = false;
+            GameManager.Paused = false;
+            dialogueCanvas = null;
+            dialogueText = null;
+            Complete = false;
+            currentChar = 0;
+            sentenceInt = 0;
+
         }
     }
 }
